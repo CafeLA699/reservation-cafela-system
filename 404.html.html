@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAFE LA Reservation System</title>
+  
+  <!-- Link to Google Fonts for better font style -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+      color: #333;
+    }
+
+    h1 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      text-align: center;
+      margin-top: 20px;
+      font-size: 2.5em;
+      color: #4caf50; /* Green theme color */
+    }
+
+    #table-layout {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    /* Circular Tables */
+    .table.circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 2px solid black;
+      text-align: center;
+      line-height: 80px;
+      background-color: lightgreen;
+      position: relative;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
+    }
+
+    /* Rectangular Tables */
+    .table.rect {
+      width: 160px;
+      height: 80px;
+      border: 2px solid black;
+      text-align: center;
+      line-height: 80px;
+      background-color: lightgreen;
+      position: relative;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
+    }
+
+    /* Square Tables */
+    .table.square {
+      width: 80px;
+      height: 80px;
+      border: 2px solid black;
+      text-align: center;
+      line-height: 80px;
+      background-color: lightgreen;
+      position: relative;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
+    }
+
+    .reserved-tag {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background-color: rgba(255, 0, 0, 0.8);
+      color: white;
+      padding: 5px;
+      font-size: 0.7em;
+      font-weight: bold;
+      border-radius: 5px;
+      display: none;
+    }
+
+    .table[data-status="reserved"] .reserved-tag {
+      display: block;
+    }
+
+    .reservation-template {
+      margin-top: 20px;
+      padding: 10px;
+      border: 2px solid black;
+      background-color: #fff;
+      width: 80%;
+      margin: 20px auto;
+    }
+
+    .reservation-columns {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .reservation-column {
+      flex: 1;
+      border: 1px solid #ccc;
+      padding: 10px;
+      background-color: #f0f0f0;
+    }
+
+    .reservation-time {
+      font-weight: 600;
+      margin-bottom: 5px;
+      text-align: center;
+    }
+
+    .reservation-entry {
+      margin-bottom: 5px;
+      text-align: left;
+    }
+
+    .highlight {
+      color: orange; /* Highlight only the table number and guest name in orange */
+    }
+  </style>
+</head>
+<body>
+
+  <h1>CAFE LA Reservation System</h1>
+
+  <!-- Table Layout -->
+  <div id="table-layout">
+    <!-- First Row (Circle tables 5, 6, 7, 8, 9) -->
+    <div class="table circle" id="cat5">
+      Cat 5
+      <div class="reserved-tag">Reserved</div>
+    </div>
+    <div class="table circle" id="cat6">
+      Cat 6
+      <div class="reserved-tag">Reserved</div>
+    </div>
+    <div class="table circle" id="cat7">
+      Cat 7
+      <div class="reserved-tag">Reserved</div>
+    </div>
+    <div class="table circle" id="cat8">
+      Cat 8
+      <div class="reserved-tag">Reserved</div>
+    </div>
+    <div class="table circle" id="cat9">
+      Cat 9
+      <div class="reserved-tag">Reserved</div>
+    </div>
+
+    <!-- Second Row (Square tables 10, 11, 12, 13 with their paired tables) -->
+    <div class="table square" id="cat10">
+      Cat 10
+      <div class="reserved-tag">Reserved</div>
+    </div>
+    <div class="table square" id="cat10d">
+      10D
+      <div class="reserved-tag">Reserved</div>
+    </div>
+    <div class="table square" id="cat11">
+      Cat 11
+      <div class="reserved-tag">Reserved</div>
+    </div>
+    <div class="table square" id="cat11d">
+      11D
+      <div class="reserved-tag">Reserved</div>
+    </div>
+    <div class="table square" id="cat12">
+      Cat 12
+      <div class="reserved-tag">Reserved</div>
+    </div>
+    <div class="table square" id="cat12d">
+      12D
+      <div class="reserved-tag">Reserved</div>
+    </div>
+    <div class="table square" id="cat13">
+      Cat 13
+      <div class="reserved-tag">Reserved</div>
+    </div>
+    <div class="table square" id="cat13d">
+      13D
+      <div class="reserved-tag">Reserved</div>
+    </div>
+
+    <!-- Third Row (Square tables 1, 2 and Rectangular table 3) -->
+    <div class="table square" id="cat1">
+      Cat 1
+      <div class="reserved-tag">Reserved</div>
+    </div>
+    <div class="table square" id="cat2">
+      Cat 2
+      <div class="reserved-tag">Reserved</div>
+    </div>
+    <div class="table rect" id="cat3">
+      Cat 3
+      <div class="reserved-tag">Reserved</div>
+    </div>
+
+    <!-- Fourth Row (Circular table 4) -->
+    <div class="table circle" id="cat4">
+      Cat 4
+      <div class="reserved-tag">Reserved</div>
+    </div>
+  </div>
+
+  <!-- Form for Reservations -->
+  <form id="reservation-form" style="margin-top: 20px;">
+    <label for="name">Guest Name:</label>
+    <input type="text" id="name" required><br><br>
+
+    <label for="time">Reservation Time:</label>
+    <select id="time">
+      <!-- Times will be dynamically populated -->
+    </select><br><br>
+
+    <label for="pax">Number of People (Pax):</label>
+    <input type="number" id="pax" required min="1" max="10"><br><br>
+
+    <button type="submit">Reserve Table</button>
+  </form>
+
+  <!-- Reservation Template Section -->
+  <div id="reservation-template" class="reservation-template">
+    <h2>Reservation Details</h2>
+    <div id="reservation-columns" class="reservation-columns">
+      <!-- Reservation groups based on the hour will be displayed here in different columns -->
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Time slots from 7:00 AM to 9:00 PM
+    const timeSlots = [];
+    let startTime = new Date();
+    startTime.setHours(7, 0, 0);
+    const endTime = new Date();
+    endTime.setHours(21, 0, 0);
+
+    while (startTime <= endTime) {
+      const hours = startTime.getHours().toString().padStart(2, '0');
+      const minutes = startTime.getMinutes().toString().padStart(2, '0');
+      timeSlots.push(`${hours}:${minutes}`);
+      startTime.setMinutes(startTime.getMinutes() + 15);
+    }
+
+    const timeDropdown = document.getElementById('time');
+    timeSlots.forEach(slot => {
+      const option = document.createElement('option');
+      option.value = slot;
+      option.textContent = slot;
+      timeDropdown.appendChild(option);
+    });
+
+    // Reservation storage for each table
+    const tableReservations = {
+      cat1: [], cat2: [], cat3: [], cat4: [], cat5: [], cat6: [],
+      cat7: [], cat8: [], cat9: [],
+      cat10: [], cat10d: [],
+      cat11: [], cat11d: [],
+      cat12: [], cat12d: [],
+      cat13: [], cat13d: []
+    };
+
+    document.getElementById('reservation-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const guestName = document.getElementById('name').value;
+      const reservationTime = document.getElementById('time').value;
+      const pax = parseInt(document.getElementById('pax').value);
+
+      const selectedTable = assignTable(pax);
+      if (!selectedTable) {
+        alert('No available tables for the requested number of people or time slot.');
+        return;
+      }
+
+      const reservation = { name: guestName, time: reservationTime };
+
+      tableReservations[selectedTable].push(reservation);
+      document.getElementById(selectedTable).dataset.status = 'reserved';
+
+      // Update the display of reservations
+      displayGroupedReservations();
+
+      alert(`Table ${selectedTable} reserved successfully at ${reservationTime} for ${guestName}.`);
+    });
+
+    function assignTable(pax) {
+      if (pax <= 2) {
+        return findAvailableTable(["cat5", "cat6", "cat7", "cat8", "cat9"]);
+      } else if (pax <= 4) {
+        return findAvailableTable(["cat10", "cat11", "cat12", "cat13"]);
+      } else if (pax <= 7) {
+        return findAvailableTable(["cat1", "cat2", "cat3"]);
+      }
+      return null;
+    }
+
+    function findAvailableTable(tables) {
+      for (let table of tables) {
+        if (tableReservations[table].length === 0) {
+          return table;
+        }
+      }
+      return null;
+    }
+
+    // Function to group reservations by hour and display in columns
+    function displayGroupedReservations() {
+      const reservationColumns = document.getElementById('reservation-columns');
+      reservationColumns.innerHTML = ''; // Clear previous entries
+
+      const groupedByHour = {}; // Object to group reservations by hour
+
+      // Group reservations by hour
+      Object.keys(tableReservations).forEach(tableId => {
+        const reservations = tableReservations[tableId];
+        reservations.forEach(reservation => {
+          const [hour] = reservation.time.split(":"); // Extract the hour
+
+          if (!groupedByHour[hour]) {
+            groupedByHour[hour] = [];
+          }
+
+          let displayTableId = tableId;
+          if (tableId.endsWith('d')) {
+            displayTableId = tableId.slice(0, -1); // Combine with its main table
+          }
+          groupedByHour[hour].push(`<span class="highlight">Table ${displayTableId}</span> - Reserved by <span class="highlight">${reservation.name}</span> at ${reservation.time}`);
+        });
+      });
+
+      // Display grouped reservations by hour in separate columns
+      Object.keys(groupedByHour).forEach(hour => {
+        const hourColumn = document.createElement('div');
+        hourColumn.className = 'reservation-column';
+        hourColumn.innerHTML = `<div class="reservation-time">${hour}:00</div>`;
+
+        groupedByHour[hour].forEach(reservation => {
+          const reservationDiv = document.createElement('div');
+          reservationDiv.className = 'reservation-entry'; // Highlight table number and guest name
+          reservationDiv.innerHTML = reservation;
+          hourColumn.appendChild(reservationDiv);
+        });
+
+        reservationColumns.appendChild(hourColumn);
+      });
+    }
+  </script>
+</body>
+</html>
